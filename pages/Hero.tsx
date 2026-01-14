@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useI18n } from "../contexts/I18nContext";
+import logoWhyUs from "../assets/fae3f853-74ba-4aaa-b185-b638d1e8b68f-1.jpg";
 
 const Hero: React.FC = () => {
   const { t } = useI18n();
@@ -234,9 +235,14 @@ const Hero: React.FC = () => {
         <div className="max-w-[1440px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="relative">
-              <img
+              {/* <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8k98PH1cIsdLy_bctknxRvn039OCwnzAvU1D5e8ghoiB1NOPe1s9kh9Fi3EkZmUi1lxNujxrYt_Qx9NyD_cWbMcgP7cGk-zhvhXmxNLYVzNYtvpUYBE8xyOOHexLrF1Tc2pt1WOHupgGRIv47DfL6czg3qtvIQXFHXAq8_l4RyZlmRHQ5f8kYSbEt3rK4nmy3ij_OgAfJ9WNopiuvdb2tW3VIWbPNKD8jcZWlH-EOm1tkRAF2H_HeI0LWAo1ACR8ktNPS654lWMg"
-                alt="Vertex Office"
+                alt="Professional Advertising Team at Work"
+                className="rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000"
+              /> */}
+              <img
+                src={logoWhyUs}
+                alt="Professional Advertising Team at Work"
                 className="rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000"
               />
               <div className="absolute -bottom-10 -right-10 bg-primary p-10 rounded-2xl shadow-2xl hidden md:block">

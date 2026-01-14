@@ -39,16 +39,16 @@
     "copyright": "© 2024 Vertex Media Group. All rights reserved."
   },
   "hero": {
-    "badge": "Premium Media Agency",
-    "title1": "Crafting",
-    "title2": "Legendary",
-    "title3": "Brand Experiences",
-    "subtitle": "Vertex Media Group bridges the gap between creativity and commerce. We deliver cinematic production, high-impact outdoor media, and strategic branding that dominates the market.",
-    "exploreWork": "Explore Our Work",
-    "ourStory": "Our Story",
+  "badge": "Professional Advertising",
+  "title1": "Professional",
+  "title2": "Advertising",
+  "title3": "Powerful Brand Experiences",
+  "subtitle": "At Professional Advertising, we transform your ideas into reality that drives your business success and reflect the strength of your brand to give you a clear presence among your competitors, by providing logistical solutions through the most suitable advertising channels for you.",
+  "exploreWork": "Explore Our Work",
+  "ourStory": "Our Story",
     "quickLink1": {
       "number": "01",
-      "title": "Outdoor",
+  "title": "Visual Identity",
       "description": "Dominating Skylines"
     },
     "quickLink2": {
@@ -72,31 +72,31 @@
       "viewAllServices": "View All Services"
     },
     "service1": {
-      "title": "Branding & Strategy",
-      "description": "Developing strong visual identities that resonate globally."
+      "title": "Visual Identity Design",
+  "description": "Creative and appealing visual identity"
     },
     "service2": {
-      "title": "Outdoor Advertising",
-      "description": "Strategic billboard placements in high-traffic urban centers."
+       "title": "Social Media",
+  "description": "Marketing services and effective campaigns"
     },
     "service3": {
-      "title": "Video Production",
-      "description": "Cinematic content for social, TV, and corporate use."
+     "title": "Banners & Stickers",
+  "description": "High-quality banner and sticker design and printing services"
     },
     "service4": {
-      "title": "Digital Marketing",
-      "description": "Data-driven campaigns that maximize ROI and reach."
+        "title": "Web Solutions",
+    "description": "Website, e-commerce, and UX design"
     },
     "service5": {
-      "title": "Event Management",
-      "description": "End-to-end planning for high-profile corporate exhibitions."
+          "title": "Hosting & Support",
+    "description": "Reliable hosting and continuous support"
     },
     "service6": {
-      "title": "Print & Fabrication",
-      "description": "Large format printing and bespoke architectural metalwork."
+         "title": "UI/UX Design",
+    "description": "Innovative and user-friendly interface and experience design"
     },
     "advantageSection": {
-      "label": "The Vertex Advantage",
+      "label": "Professional Advertising Advantage",
       "title": "Why Industry Leaders Partner With Us",
       "advantage1": {
         "title": "Unmatched Precision",
@@ -188,11 +188,14 @@
     }
   },
   "mission": {
-    "badge": "Our Core Purpose",
-    "title1": "Driving growth through",
-    "title2": "creativity",
-    "title3": "and commitment.",
-    "subtitle": "We don't just build campaigns; we build legacies. Our mission is to elevate brands through a fusion of artistic excellence and strategic precision.",
+  "badge": "Professional Advertising",
+  "title1": "Professional",
+  "title2": "Advertising",
+  "title3": "Powerful Brand Experiences",
+  "subtitle": "At Professional Advertising, we transform your ideas into reality that drives your business success and reflect the strength of your brand to give you a clear presence among your competitors, by providing logistical solutions through the most suitable advertising channels for you.",
+  "exploreWork": "Explore Our Work",
+  "ourStory": "Our Story",
+   
     "missionStatement": {
       "title": "Mission Statement",
       "subtitle": "The four pillars that define our approach to every challenge."
