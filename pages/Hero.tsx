@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useI18n } from "../contexts/I18nContext";
 import logoWhyUs from "../assets/fae3f853-74ba-4aaa-b185-b638d1e8b68f-1.jpg";
+import heroimage from "../assets/hero.jpg";
 
 interface ServiceItem {
   id: number;
@@ -129,8 +130,7 @@ const Hero: React.FC = () => {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20s] ease-linear scale-105"
             style={{
-              backgroundImage:
-                "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBxkQYNXa1ppqeGoxg1MXwuIpi26E5rGrDedYXjUxYMsewL9dg25Q6aQdP9VkmTqEaOIE5_euwxRQD8krKs-Z0xITikRgD4E5HCe38vExK1NonNu7Po7oCD-UBsmiSFqp7KWjPbivzF5NaH7qF3u2qtVdis4YbIuij1SOrvGuf16d1z3Bdv8xPWtRBFIiOd21bXxQIrfj7XzH6r0IFj-kNsA49LWyLZhKwk46Nugcp57hzgDy88lDkvMYMuPpLkPvyITReDKcU7Tzk')",
+              backgroundImage: `url(${heroimage})`,
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#201213] dark:from-[#201213] light:from-gray-50/80 via-[#201213]/70 dark:via-[#201213]/70 light:via-gray-50/60 to-transparent"></div>
