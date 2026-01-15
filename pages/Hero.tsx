@@ -1,11 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useI18n } from "../contexts/I18nContext";
 import logoWhyUs from "../assets/fae3f853-74ba-4aaa-b185-b638d1e8b68f-1.jpg";
 
-const Hero: React.FC = () => {
-  const { t } = useI18n();
+interface ServiceItem {
+  id: number;
+  name: string;
+  short_name: string;
+  description: string;
+  short_description: string;
+  icon?: string;
+}
 
+interface Product {
+  id: number;
+  name: string;
+  short_description: string;
+  images: string[] | null;
+  category_id: number;
+  description: string;
+}
+
+interface Category {
+  id: number;
+  name: string;
+  description: string;
+  products: Product[];
+}
+
+const Hero: React.FC = () => {
+  const { t, language } = useI18n();
+
+  // States
+  const [services, setServices] = useState<ServiceItem[]>([]);
+  const [portfolioProjects, setPortfolioProjects] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loadingServices, setLoadingServices] = useState(true);
+  const [loadingPortfolio, setLoadingPortfolio] = useState(true);
+
+  // Fetch Services
+  useEffect(() => {
+    fetch("https://adv6ksa.com/api/web/services")
+      .then((res) => res.json())
+      .then((data) => {
+        setServices(data);
+        setLoadingServices(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoadingServices(false);
+      });
+  }, []);
+
+  // Fetch Portfolio (Categories + Products)
+  useEffect(() => {
+    fetch("https://adv6ksa.com/api/web/categories")
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data);
+        const allProducts = data.flatMap((c: Category) => c.products);
+        setPortfolioProjects(allProducts.slice(0, 3)); // نعرض 3 مشاريع فقط في الهيرو
+        setLoadingPortfolio(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoadingPortfolio(false);
+      });
+  }, []);
+
+  // Quick Links (Static)
   const quickLinks = [
     {
       n: "01",
@@ -29,39 +92,7 @@ const Hero: React.FC = () => {
     },
   ];
 
-  const services = [
-    {
-      title: t("hero.service1.title"),
-      icon: "auto_awesome",
-      desc: t("hero.service1.description"),
-    },
-    {
-      title: t("hero.service2.title"),
-      icon: "campaign",
-      desc: t("hero.service2.description"),
-    },
-    {
-      title: t("hero.service3.title"),
-      icon: "videocam",
-      desc: t("hero.service3.description"),
-    },
-    {
-      title: t("hero.service4.title"),
-      icon: "analytics",
-      desc: t("hero.service4.description"),
-    },
-    {
-      title: t("hero.service5.title"),
-      icon: "event",
-      desc: t("hero.service5.description"),
-    },
-    {
-      title: t("hero.service6.title"),
-      icon: "precision_manufacturing",
-      desc: t("hero.service6.description"),
-    },
-  ];
-
+  // Advantages Section (Static)
   const advantages = [
     {
       t: t("hero.advantageSection.advantage1.title"),
@@ -77,26 +108,18 @@ const Hero: React.FC = () => {
     },
   ];
 
-  const portfolioProjects = [
-    {
-      id: "1",
-      title: t("hero.portfolioSection.project1.title"),
-      category: t("hero.portfolioSection.project1.category"),
-      image: "https://picsum.photos/600/800?random=11",
-    },
-    {
-      id: "2",
-      title: t("hero.portfolioSection.project2.title"),
-      category: t("hero.portfolioSection.project2.category"),
-      image: "https://picsum.photos/800/450?random=12",
-    },
-    {
-      id: "3",
-      title: t("hero.portfolioSection.project3.title"),
-      category: t("hero.portfolioSection.project3.category"),
-      image: "https://picsum.photos/600/600?random=13",
-    },
-  ];
+  // Helpers for language
+  const getServiceTitle = (s: ServiceItem) =>
+    language === "ar" ? s.short_name : s.name;
+  const getServiceDesc = (s: ServiceItem) =>
+    language === "ar" ? s.short_description : s.description;
+
+  const getProjectTitle = (p: Product) =>
+    language === "ar" ? p.short_description : p.name;
+  const getProjectCategory = (p: Product) => {
+    const cat = categories.find((c) => c.id === p.category_id);
+    return cat ? (language === "ar" ? cat.description : cat.name) : "";
+  };
 
   return (
     <div className="flex flex-col bg-[#201213] dark:bg-[#201213] light:bg-gray-50">
@@ -187,45 +210,50 @@ const Hero: React.FC = () => {
       </section>
 
       {/* Services Highlight Section */}
-      <section className="py-24 px-6 lg:px-12 bg-[#201213] dark:bg-[#201213] light:bg-gray-50">
+      {/* Services Section */}
+      <section className="py-16 sm:py-24 px-6 sm:px-8 lg:px-12 bg-[#201213]">
         <div className="max-w-[1440px] mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
             <div className="max-w-2xl">
-              <h2 className="text-primary text-sm font-bold tracking-widest uppercase mb-4">
+              <h2 className="text-primary text-sm font-bold tracking-widest uppercase mb-2">
                 {t("hero.servicesSection.label")}
               </h2>
-              <h3 className="text-4xl md:text-6xl font-black text-white dark:text-white light:text-gray-900 leading-tight">
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight">
                 {t("hero.servicesSection.title")}
               </h3>
             </div>
             <Link
               to="/services"
-              className="text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-white dark:hover:text-white light:hover:text-gray-900 flex items-center gap-2 font-bold transition-colors"
+              className="text-gray-400 hover:text-white flex items-center gap-2 font-bold mt-4 md:mt-0"
             >
               {t("hero.servicesSection.viewAllServices")}{" "}
               <span className="material-symbols-outlined">arrow_outward</span>
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {services.map((s, i) => (
-              <div
-                key={i}
-                className="group p-8 rounded-2xl bg-card-dark dark:bg-card-dark light:bg-white border border-white/5 dark:border-white/5 light:border-gray-200 hover:border-primary/50 transition-all duration-300"
-              >
-                <div className="size-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all">
-                  <span className="material-symbols-outlined text-3xl">
-                    {s.icon}
-                  </span>
+          <div className="flex gap-4 overflow-x-auto pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
+            {loadingServices ? (
+              <p className="text-white">Loading...</p>
+            ) : (
+              services.map((s) => (
+                <div
+                  key={s.id}
+                  className="min-w-[250px] group p-6 sm:p-8 rounded-2xl bg-card-dark border border-white/5 hover:border-primary/50 transition-all flex-shrink-0"
+                >
+                  <div className="size-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+                    <span className="material-symbols-outlined text-3xl">
+                      {s.icon || "design_services"}
+                    </span>
+                  </div>
+                  <h4 className="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                    {getServiceTitle(s)}
+                  </h4>
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    {getServiceDesc(s)}
+                  </p>
                 </div>
-                <h4 className="text-xl font-bold text-white dark:text-white light:text-gray-900 mb-3 group-hover:text-primary transition-colors">
-                  {s.title}
-                </h4>
-                <p className="text-gray-400 dark:text-gray-400 light:text-gray-600 text-sm leading-relaxed">
-                  {s.desc}
-                </p>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -291,50 +319,58 @@ const Hero: React.FC = () => {
       </section>
 
       {/* Featured Portfolio Section */}
-      <section className="py-24 px-6 lg:px-12 bg-[#201213] dark:bg-[#201213] light:bg-gray-50">
+      {/* Portfolio Section */}
+      <section className="py-16 sm:py-24 px-6 sm:px-8 lg:px-12 bg-[#201213]">
         <div className="max-w-[1440px] mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-primary text-sm font-bold tracking-widest uppercase mb-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-primary text-sm font-bold tracking-widest uppercase mb-2">
               {t("hero.portfolioSection.label")}
             </h2>
-            <h3 className="text-4xl md:text-6xl font-black text-white dark:text-white light:text-gray-900">
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white">
               {t("hero.portfolioSection.title")}
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {portfolioProjects.map((proj) => (
-              <div
-                key={proj.id}
-                className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-card-dark dark:bg-card-dark light:bg-white cursor-pointer"
-              >
-                <img
-                  src={proj.image}
-                  alt={proj.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 dark:from-black/90 light:from-black/70 via-transparent to-transparent opacity-80"></div>
-                <div className="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform">
-                  <span className="text-primary text-xs font-bold uppercase tracking-widest mb-2">
-                    {proj.category}
-                  </span>
-                  <h4 className="text-2xl font-black text-white mb-4">
-                    {proj.title}
-                  </h4>
-                  <div className="flex items-center gap-2 text-sm font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                    {t("hero.portfolioSection.viewCaseStudy")}{" "}
-                    <span className="material-symbols-outlined text-lg">
-                      arrow_forward
+          <div className="flex gap-4 overflow-x-auto pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-8">
+            {loadingPortfolio ? (
+              <p className="text-white">Loading...</p>
+            ) : (
+              portfolioProjects.map((proj) => (
+                <div
+                  key={proj.id}
+                  className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-card-dark cursor-pointer min-w-[250px] flex-shrink-0"
+                >
+                  <img
+                    src={
+                      proj.images?.[0] || "https://via.placeholder.com/600x400"
+                    }
+                    alt={getProjectTitle(proj)}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-80"></div>
+                  <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform">
+                    <span className="text-primary text-xs font-bold uppercase tracking-widest mb-1">
+                      {getProjectCategory(proj)}
                     </span>
+                    <h4 className="text-xl sm:text-2xl font-black text-white mb-2">
+                      {getProjectTitle(proj)}
+                    </h4>
+                    <div className="flex items-center gap-1 text-sm font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                      {t("hero.portfolioSection.viewCaseStudy")}{" "}
+                      <span className="material-symbols-outlined text-base">
+                        arrow_forward
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
-          <div className="mt-16 text-center">
+
+          <div className="mt-12 text-center">
             <Link
               to="/portfolio"
-              className="inline-block border-b-2 border-primary text-white dark:text-white light:text-gray-900 font-bold pb-1 hover:text-primary transition-colors"
+              className="inline-block border-b-2 border-primary text-white font-bold pb-1 hover:text-primary transition-colors"
             >
               {t("hero.portfolioSection.exploreFullPortfolio")}
             </Link>
@@ -354,21 +390,22 @@ const Hero: React.FC = () => {
             star
           </span>
           <h4 className="text-2xl md:text-4xl font-medium text-white dark:text-white light:text-gray-900 italic leading-relaxed mb-12">
-            "{t("hero.testimonialQuote.text")}"
+            "اشتغلنا مع الفريق على مشروع التطبيق الخاص بينا، وكانوا ملتزمين بكل
+            تفاصيل التصميم والـ UI/UX. التجربة كلها كانت سلسة واحترافية جدًا."
           </h4>
           <div className="flex flex-col items-center">
             <div
               className="size-16 rounded-full bg-cover bg-center border-2 border-primary mb-4"
               style={{
                 backgroundImage:
-                  "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDqxZs8Zi3egmaPAL-DtrrapNC8_0daup-Hn0UP7Cbvi8KhCaBN9pUc27oAo1hewBmh4SUbp_sw3nNPgUHLt_gVmPcKamas181LnrKS4iDKqmgBsjS6nOU5y3aAdAue5HUXFleivSY8Yvya7U7smFvb1PHgpUB4vrdjvPdZemTVLqJr3w7IYkch3KmDkSXrVI2VN4rTHclZaEGsngSInoEUklerieZKB064M3sdTueyrmpyMr4-Mc4uyc-kazBoxhuvfWTSVHATrQ0')",
+                  "url('https://randomuser.me/api/portraits/men/32.jpg')",
               }}
             />
             <p className="text-white dark:text-white light:text-gray-900 font-bold text-lg">
-              {t("hero.testimonialQuote.author")}
+              أحمد سامي
             </p>
             <p className="text-primary text-sm font-bold uppercase tracking-widest">
-              {t("hero.testimonialQuote.role")}
+              مالك مشروع تجاري
             </p>
           </div>
         </div>
@@ -384,7 +421,16 @@ const Hero: React.FC = () => {
             {t("hero.cta.description")}
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-primary hover:bg-primary-dark text-white font-black px-12 py-5 rounded-xl shadow-2xl shadow-primary/30 transition-all hover:-translate-y-1">
+            <button
+              onClick={() =>
+                window.open(
+                  "https://wa.me/201094321637?text=" +
+                    encodeURIComponent("مرحبًا! أريد الاستفسار عن خدماتكم."),
+                  "_blank"
+                )
+              }
+              className="bg-primary hover:bg-primary-dark text-white font-black px-12 py-5 rounded-xl shadow-2xl shadow-primary/30 transition-all hover:-translate-y-1"
+            >
               {t("hero.cta.startConversation")}
             </button>
             <Link

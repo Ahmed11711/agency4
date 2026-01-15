@@ -135,9 +135,6 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          <button className="hidden sm:flex items-center justify-center rounded-lg bg-primary hover:bg-primary-dark px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/20 transition-all">
-            {t("common.getQuote")}
-          </button>
           <button className="md:hidden text-white dark:text-white light:text-gray-900">
             <span className="material-symbols-outlined text-3xl">menu</span>
           </button>
