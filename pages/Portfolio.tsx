@@ -126,8 +126,9 @@ const Portfolio: React.FC = () => {
                     <img
                       alt={product.name}
                       src={
-                        product.images?.[0] ||
-                        "https://via.placeholder.com/600x400"
+                        typeof product.images === "string" && product.images
+                          ? product.images
+                          : "https://via.placeholder.com/600x400"
                       }
                       className="w-full h-auto transition-transform duration-700 group-hover:scale-110"
                     />

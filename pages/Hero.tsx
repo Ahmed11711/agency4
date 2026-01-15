@@ -129,12 +129,12 @@ const Hero: React.FC = () => {
         <div className="absolute inset-0 z-0">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20s] ease-linear scale-105"
-            style={{
-              backgroundImage: `url(${heroimage})`,
-            }}
+            style={{ backgroundImage: `url(${heroimage})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#201213] dark:from-[#201213] light:from-gray-50/80 via-[#201213]/70 dark:via-[#201213]/70 light:via-gray-50/60 to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#201213] dark:from-[#201213] light:from-gray-50/80 via-transparent to-[#201213]/60 dark:to-[#201213]/60 light:to-gray-50/40"></div>
+
+          <div className="absolute inset-0 bg-gradient-to-r from-[#201213]/70 via-[#201213]/40 to-transparent"></div>
+
+          <div className="absolute inset-0 bg-gradient-to-t from-[#201213]/70 via-transparent to-[#201213]/30"></div>
         </div>
 
         <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 lg:px-12 pt-20">
