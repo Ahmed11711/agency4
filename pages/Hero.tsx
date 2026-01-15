@@ -32,7 +32,6 @@ interface Category {
 const Hero: React.FC = () => {
   const { t, language } = useI18n();
 
-  // States
   const [services, setServices] = useState<ServiceItem[]>([]);
   const [portfolioProjects, setPortfolioProjects] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -53,14 +52,14 @@ const Hero: React.FC = () => {
       });
   }, []);
 
-  // Fetch Portfolio (Categories + Products)
+  // Fetch Portfolio
   useEffect(() => {
     fetch("https://adv6ksa.com/api/web/categories")
       .then((res) => res.json())
       .then((data) => {
         setCategories(data);
         const allProducts = data.flatMap((c: Category) => c.products);
-        setPortfolioProjects(allProducts.slice(0, 3)); // نعرض 3 مشاريع فقط في الهيرو
+        setPortfolioProjects(allProducts.slice(0, 3));
         setLoadingPortfolio(false);
       })
       .catch((err) => {
@@ -69,7 +68,6 @@ const Hero: React.FC = () => {
       });
   }, []);
 
-  // Quick Links (Static)
   const quickLinks = [
     {
       n: "01",
@@ -93,7 +91,6 @@ const Hero: React.FC = () => {
     },
   ];
 
-  // Advantages Section (Static)
   const advantages = [
     {
       t: t("hero.advantageSection.advantage1.title"),
@@ -109,7 +106,6 @@ const Hero: React.FC = () => {
     },
   ];
 
-  // Helpers for language
   const getServiceTitle = (s: ServiceItem) =>
     language === "ar" ? s.short_name : s.name;
   const getServiceDesc = (s: ServiceItem) =>
@@ -124,20 +120,18 @@ const Hero: React.FC = () => {
 
   return (
     <div className="flex flex-col bg-[#201213] dark:bg-[#201213] light:bg-gray-50">
-      {/* Cinematic Hero Section */}
+      {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20s] ease-linear scale-105"
             style={{ backgroundImage: `url(${heroimage})` }}
           />
-
           <div className="absolute inset-0 bg-gradient-to-r from-[#201213]/70 via-[#201213]/40 to-transparent"></div>
-
           <div className="absolute inset-0 bg-gradient-to-t from-[#201213]/70 via-transparent to-[#201213]/30"></div>
         </div>
 
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 lg:px-12 pt-20">
+        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 pt-20">
           <div className="max-w-4xl flex flex-col gap-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 w-fit backdrop-blur-sm">
               <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
@@ -145,7 +139,7 @@ const Hero: React.FC = () => {
                 {t("hero.badge")}
               </span>
             </div>
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-white dark:text-white light:text-gray-900 leading-[1.1] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-[1.1] tracking-tight break-words">
               {t("hero.title1")}{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-red-400">
                 {t("hero.title2")}
@@ -153,7 +147,7 @@ const Hero: React.FC = () => {
               <br />
               {t("hero.title3")}
             </h1>
-            <p className="text-lg sm:text-xl text-gray-300 dark:text-gray-300 light:text-gray-700 max-w-2xl font-normal leading-relaxed border-l-4 border-primary pl-6">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-full font-normal leading-relaxed border-l-4 border-primary pl-4 sm:pl-6">
               {t("hero.subtitle")}
             </p>
             <div className="flex flex-wrap items-center gap-4 mt-4">
@@ -180,7 +174,7 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* Floating Quick Links Overlay */}
+        {/* Quick Links */}
         <div className="absolute bottom-0 w-full z-20 border-t border-white/5 dark:border-white/5 light:border-gray-200 bg-background-dark/80 dark:bg-background-dark/80 light:bg-white/90 backdrop-blur-md hidden lg:block">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="grid grid-cols-4 divide-x divide-white/10 dark:divide-white/10 light:divide-gray-200">
@@ -209,7 +203,6 @@ const Hero: React.FC = () => {
         </div>
       </section>
 
-      {/* Services Highlight Section */}
       {/* Services Section */}
       <section className="py-16 sm:py-24 px-6 sm:px-8 lg:px-12 bg-[#201213]">
         <div className="max-w-[1440px] mx-auto">
@@ -231,14 +224,14 @@ const Hero: React.FC = () => {
             </Link>
           </div>
 
-          <div className="flex gap-4 overflow-x-auto pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {loadingServices ? (
               <p className="text-white">Loading...</p>
             ) : (
               services.map((s) => (
                 <div
                   key={s.id}
-                  className="min-w-[250px] group p-6 sm:p-8 rounded-2xl bg-card-dark border border-white/5 hover:border-primary/50 transition-all flex-shrink-0"
+                  className="group p-6 sm:p-8 rounded-2xl bg-card-dark border border-white/5 hover:border-primary/50 flex flex-col"
                 >
                   <div className="size-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-primary group-hover:text-white transition-all">
                     <span className="material-symbols-outlined text-3xl">
@@ -258,67 +251,6 @@ const Hero: React.FC = () => {
         </div>
       </section>
 
-      {/* Stats & Why Us Section */}
-      <section className="py-24 px-6 lg:px-12 bg-black/20 dark:bg-black/20 light:bg-gray-100">
-        <div className="max-w-[1440px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="relative">
-              {/* <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8k98PH1cIsdLy_bctknxRvn039OCwnzAvU1D5e8ghoiB1NOPe1s9kh9Fi3EkZmUi1lxNujxrYt_Qx9NyD_cWbMcgP7cGk-zhvhXmxNLYVzNYtvpUYBE8xyOOHexLrF1Tc2pt1WOHupgGRIv47DfL6czg3qtvIQXFHXAq8_l4RyZlmRHQ5f8kYSbEt3rK4nmy3ij_OgAfJ9WNopiuvdb2tW3VIWbPNKD8jcZWlH-EOm1tkRAF2H_HeI0LWAo1ACR8ktNPS654lWMg"
-                alt="Professional Advertising Team at Work"
-                className="rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000"
-              /> */}
-              <img
-                src={logoWhyUs}
-                alt="Professional Advertising Team at Work"
-                className="rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000"
-              />
-              <div className="absolute -bottom-10 -right-10 bg-primary p-10 rounded-2xl shadow-2xl hidden md:block">
-                <div className="text-5xl font-black text-white">12+</div>
-                <div className="text-xs font-bold uppercase tracking-widest text-white/80 mt-2">
-                  {t("hero.advantageSection.yearsOfExcellence")}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-8">
-              <h2 className="text-primary text-sm font-bold tracking-widest uppercase">
-                {t("hero.advantageSection.label")}
-              </h2>
-              <h3 className="text-4xl md:text-5xl font-black text-white dark:text-white light:text-gray-900 leading-tight">
-                {t("hero.advantageSection.title")}
-              </h3>
-              <div className="space-y-6">
-                {advantages.map((item, idx) => (
-                  <div key={idx} className="flex gap-4">
-                    <div className="size-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
-                      <span className="material-symbols-outlined text-primary text-sm">
-                        check
-                      </span>
-                    </div>
-                    <div>
-                      <h5 className="text-white dark:text-white light:text-gray-900 font-bold text-lg mb-1">
-                        {item.t}
-                      </h5>
-                      <p className="text-gray-400 dark:text-gray-400 light:text-gray-600 text-sm leading-relaxed">
-                        {item.d}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <Link
-                to="/why-us"
-                className="bg-white/5 dark:bg-white/5 light:bg-gray-100 hover:bg-white/10 dark:hover:bg-white/10 light:hover:bg-gray-200 border border-white/10 dark:border-white/10 light:border-gray-300 text-white dark:text-white light:text-gray-900 font-bold px-8 py-4 rounded-lg w-fit transition-all mt-4"
-              >
-                {t("hero.advantageSection.exploreProcess")}
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Portfolio Section */}
       {/* Portfolio Section */}
       <section className="py-16 sm:py-24 px-6 sm:px-8 lg:px-12 bg-[#201213]">
         <div className="max-w-[1440px] mx-auto">
@@ -331,14 +263,14 @@ const Hero: React.FC = () => {
             </h3>
           </div>
 
-          <div className="flex gap-4 overflow-x-auto pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
             {loadingPortfolio ? (
               <p className="text-white">Loading...</p>
             ) : (
               portfolioProjects.map((proj) => (
                 <div
                   key={proj.id}
-                  className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-card-dark cursor-pointer min-w-[250px] flex-shrink-0"
+                  className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-card-dark cursor-pointer flex flex-col"
                 >
                   <img
                     src={proj.images || "https://via.placeholder.com/600x400"}
