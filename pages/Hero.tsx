@@ -341,9 +341,7 @@ const Hero: React.FC = () => {
                   className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-card-dark cursor-pointer min-w-[250px] flex-shrink-0"
                 >
                   <img
-                    src={
-                      proj.images?.[0] || "https://via.placeholder.com/600x400"
-                    }
+                    src={proj.images || "https://via.placeholder.com/600x400"}
                     alt={getProjectTitle(proj)}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
