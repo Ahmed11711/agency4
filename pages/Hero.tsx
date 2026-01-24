@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useI18n } from "../contexts/I18nContext";
-import logoWhyUs from "../assets/fae3f853-74ba-4aaa-b185-b638d1e8b68f-1.jpg";
 import heroimage from "../assets/hero.jpg";
-
-interface ServiceItem {
-  id: number;
-  name: string;
-  short_name: string;
-  description: string;
-  short_description: string;
-  icon?: string;
-}
+import ServicesSection from "../components/ServicesSection";
 
 interface Product {
   id: number;
@@ -32,25 +23,9 @@ interface Category {
 const Hero: React.FC = () => {
   const { t, language } = useI18n();
 
-  const [services, setServices] = useState<ServiceItem[]>([]);
   const [portfolioProjects, setPortfolioProjects] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [loadingServices, setLoadingServices] = useState(true);
   const [loadingPortfolio, setLoadingPortfolio] = useState(true);
-
-  // Fetch Services
-  useEffect(() => {
-    fetch("https://adv6ksa.com/api/web/services")
-      .then((res) => res.json())
-      .then((data) => {
-        setServices(data);
-        setLoadingServices(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoadingServices(false);
-      });
-  }, []);
 
   // Fetch Portfolio
   useEffect(() => {
@@ -106,11 +81,6 @@ const Hero: React.FC = () => {
     },
   ];
 
-  const getServiceTitle = (s: ServiceItem) =>
-    language === "ar" ? s.short_name : s.name;
-  const getServiceDesc = (s: ServiceItem) =>
-    language === "ar" ? s.short_description : s.description;
-
   const getProjectTitle = (p: Product) =>
     language === "ar" ? p.short_description : p.name;
   const getProjectCategory = (p: Product) => {
@@ -124,9 +94,11 @@ const Hero: React.FC = () => {
       <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20s] ease-linear scale-105"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20s] ease-linear scale-105 
+            opacity-170"
             style={{ backgroundImage: `url(${heroimage})` }}
           />
+
           <div className="absolute inset-0 bg-gradient-to-r from-[#201213]/70 via-[#201213]/40 to-transparent"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-[#201213]/70 via-transparent to-[#201213]/30"></div>
         </div>
@@ -145,7 +117,7 @@ const Hero: React.FC = () => {
                 {t("hero.title2")}
               </span>
               <br />
-              {t("hero.title3")}
+              <h1> {t("hero.title3")}</h1>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-full font-normal leading-relaxed border-l-4 border-primary pl-4 sm:pl-6">
               {t("hero.subtitle")}
@@ -204,52 +176,13 @@ const Hero: React.FC = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-16 sm:py-24 px-6 sm:px-8 lg:px-12 bg-[#201213]">
-        <div className="max-w-[1440px] mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
-            <div className="max-w-2xl">
-              <h2 className="text-primary text-sm font-bold tracking-widest uppercase mb-2">
-                {t("hero.servicesSection.label")}
-              </h2>
-              <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight">
-                {t("hero.servicesSection.title")}
-              </h3>
-            </div>
-            <Link
-              to="/services"
-              className="text-gray-400 hover:text-white flex items-center gap-2 font-bold mt-4 md:mt-0"
-            >
-              {t("hero.servicesSection.viewAllServices")}{" "}
-              <span className="material-symbols-outlined">arrow_outward</span>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {loadingServices ? (
-              <p className="text-white">Loading...</p>
-            ) : (
-              services.map((s) => (
-                <div
-                  key={s.id}
-                  className="group p-6 sm:p-8 rounded-2xl bg-card-dark border border-white/5 hover:border-primary/50 flex flex-col"
-                >
-                  <div className="size-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-primary group-hover:text-white transition-all">
-                    <span className="material-symbols-outlined text-3xl">
-                      {s.icon || "design_services"}
-                    </span>
-                  </div>
-                  <h4 className="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
-                    {getServiceTitle(s)}
-                  </h4>
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    {getServiceDesc(s)}
-                  </p>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-      </section>
+      <ServicesSection
+        variant="full"
+        limit={6}
+        label={t("hero.servicesSection.label")}
+        title={t("hero.servicesSection.title")}
+        viewAllHref="/services"
+      />
 
       {/* Portfolio Section */}
       <section className="py-16 sm:py-24 px-6 sm:px-8 lg:px-12 bg-[#201213]">
@@ -356,7 +289,7 @@ const Hero: React.FC = () => {
                 window.open(
                   "https://wa.me/201094321637?text=" +
                     encodeURIComponent("مرحبًا! أريد الاستفسار عن خدماتكم."),
-                  "_blank"
+                  "_blank",
                 )
               }
               className="bg-primary hover:bg-primary-dark text-white font-black px-12 py-5 rounded-xl shadow-2xl shadow-primary/30 transition-all hover:-translate-y-1"
