@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
                 {t("footer.companyName")}
               </h2>
             </div>
-            <p className="text-gray-400 dark:text-gray-400 light:text-gray-600 text-sm leading-relaxed">
+            <p className="text-gray-400 dark:text-gray-400 light:text-gray-600 text-md leading-relaxed">
               {t("footer.tagline")}
             </p>
             <div className="flex gap-4">

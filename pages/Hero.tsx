@@ -94,7 +94,7 @@ const Hero: React.FC = () => {
       <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20s] ease-linear scale-105 
+            className="absolute inset-0  transition-transform duration-[20s] ease-linear scale-105 
             opacity-170"
             style={{ backgroundImage: `url(${heroimage})` }}
           />
@@ -147,7 +147,7 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Quick Links */}
-        <div className="absolute bottom-0 w-full z-20 border-t border-white/5 dark:border-white/5 light:border-gray-200 bg-background-dark/80 dark:bg-background-dark/80 light:bg-white/90 backdrop-blur-md hidden lg:block">
+        {/* <div className="absolute bottom-0 w-full z-20 border-t border-white/5 dark:border-white/5 light:border-gray-200 bg-background-dark/80 dark:bg-background-dark/80 light:bg-white/90 backdrop-blur-md hidden lg:block">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="grid grid-cols-4 divide-x divide-white/10 dark:divide-white/10 light:divide-gray-200">
               {quickLinks.map((item, idx) => (
@@ -172,7 +172,7 @@ const Hero: React.FC = () => {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* Services Section */}
@@ -253,19 +253,19 @@ const Hero: React.FC = () => {
             star
           </span>
           <h4 className="text-2xl md:text-4xl font-medium text-white dark:text-white light:text-gray-900 italic leading-relaxed mb-12">
-            "اشتغلنا مع الفريق على مشروع التطبيق الخاص بينا، وكانوا ملتزمين بكل
-            تفاصيل التصميم والـ UI/UX. التجربة كلها كانت سلسة واحترافية جدًا."
+            "مشاء الله تعاملت معهم شغل جيد مرة والمميز عندهم يعطونك افكار
+            واقترحات جديد مرة زين التعامل"
           </h4>
           <div className="flex flex-col items-center">
             <div
               className="size-16 rounded-full bg-cover bg-center border-2 border-primary mb-4"
               style={{
                 backgroundImage:
-                  "url('https://randomuser.me/api/portraits/men/32.jpg')",
+                  "url('https://avatars.mds.yandex.net/i?id=4d2381f050b9d42758f6b19368e2f50c0d1a0174-3936694-images-thumbs&n=13')",
               }}
             />
             <p className="text-white dark:text-white light:text-gray-900 font-bold text-lg">
-              أحمد سامي
+              مرام المطيرى
             </p>
             <p className="text-primary text-sm font-bold uppercase tracking-widest">
               مالك مشروع تجاري
