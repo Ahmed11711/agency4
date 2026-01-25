@@ -35,71 +35,67 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
   const [services, setServices] = useState<ServiceItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const [flippedCards, setFlippedCards] = useState<Record<number, boolean>>({});
-  const [pausedCards, setPausedCards] = useState<Record<number, boolean>>({});
-
   const getTitle = (s: ServiceItem) =>
     language === "ar" ? s.short_name : s.name;
+
   const getDesc = (s: ServiceItem) =>
     language === "ar" ? s.short_description : s.description;
 
   useEffect(() => {
     fetch("https://adv6ksa.com/api/web/services")
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: ServiceItem[]) => {
         setServices(data);
         setLoading(false);
-
-        if (variant === "full") {
-          data.forEach((service: ServiceItem) => {
-            setFlippedCards((prev) => ({ ...prev, [service.id]: false }));
-            const randomDelay = Math.random() * 1500;
-            setTimeout(() => {
-              setInterval(() => {
-                setFlippedCards((prev) => {
-                  if (pausedCards[service.id])
-                    return { ...prev, [service.id]: false };
-                  return { ...prev, [service.id]: !prev[service.id] };
-                });
-              }, 5000);
-            }, randomDelay);
-          });
-        }
       })
       .catch(() => setLoading(false));
-  }, [variant, pausedCards]);
+  }, []);
 
   const displayServices =
     variant === "compact" ? services.slice(0, limit) : services;
 
-  if (loading)
+  if (loading) {
     return <p className="text-white text-center mt-20">Loading...</p>;
+  }
 
   return (
     <>
+      {/* ===== Flip Animation Styles ===== */}
       {variant === "full" && (
         <style>{`
           .flip-card {
             perspective: 1200px;
           }
+
           .flip-inner {
             position: relative;
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
-            transition: transform 0.9s ease-in-out;
+            animation: autoFlip 8s infinite cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform;
           }
-          .flip-card.flipped .flip-inner {
-            transform: rotateY(180deg);
+
+          .flip-card:hover .flip-inner {
+            animation-play-state: paused;
           }
+
+          @keyframes autoFlip {
+            0%   { transform: rotateY(0deg); }
+            45%  { transform: rotateY(0deg); }
+            55%  { transform: rotateY(180deg); }
+            95%  { transform: rotateY(180deg); }
+            100% { transform: rotateY(0deg); }
+          }
+
           .flip-front,
           .flip-back {
             position: absolute;
             inset: 0;
             backface-visibility: hidden;
-            border-radius: 12px;
+            border-radius: 16px;
           }
+
           .flip-back {
             transform: rotateY(180deg);
           }
@@ -121,7 +117,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
               : "max-w-[1440px] mx-auto"
           }
         >
-          {/* Header */}
+          {/* ===== Header (Compact) ===== */}
           {variant === "compact" && (label || title || viewAllHref) && (
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
               <div className="max-w-2xl">
@@ -139,9 +135,9 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
               {viewAllHref && (
                 <Link
                   to={viewAllHref}
-                  className="text-gray-400 hover:text-white flex items-center gap-2 font-bold mt-4 md:mt-0"
+                  className="text-gray-400 hover:text-white flex items-center gap-2 font-bold"
                 >
-                  {viewAllText || t("hero.servicesSection.viewAllServices")}{" "}
+                  {viewAllText || t("hero.servicesSection.viewAllServices")}
                   <span className="material-symbols-outlined">
                     arrow_outward
                   </span>
@@ -150,6 +146,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
             </div>
           )}
 
+          {/* ===== Header (Full) ===== */}
           {variant === "full" && (title || subtitle) && (
             <div className="text-center mb-16">
               {title && (
@@ -161,7 +158,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
             </div>
           )}
 
-          {/* Grid */}
+          {/* ===== Grid ===== */}
           <div
             className={
               variant === "compact"
@@ -169,68 +166,48 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                 : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             }
           >
+            {/* ===== Compact Cards ===== */}
             {variant === "compact" &&
               displayServices.map((s) => (
                 <div
                   key={s.id}
-                  className="group p-6 sm:p-8 rounded-2xl bg-card-dark border border-white/5 hover:border-primary/50 flex flex-col"
+                  className="p-6 rounded-2xl bg-card-dark border border-white/5"
                 >
-                  <div className="size-14 rounded-xl overflow-hidden bg-primary/10 flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-primary/20 transition-all shrink-0">
-                    {s.image ? (
-                      <img
-                        src={s.image}
-                        alt=""
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-white/5" aria-hidden />
-                    )}
-                  </div>
-                  <h4 className="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                  <h4 className="text-xl font-bold text-white mb-2">
                     {getTitle(s)}
                   </h4>
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    {getDesc(s)}
-                  </p>
+                  <p className="text-gray-400 text-sm">{getDesc(s)}</p>
                 </div>
               ))}
 
+            {/* ===== Full Flip Cards ===== */}
             {variant === "full" &&
               displayServices.map((service) => (
-                <div
-                  key={service.id}
-                  className={`flip-card h-[320px] ${flippedCards[service.id] ? "flipped" : ""}`}
-                  onMouseEnter={() =>
-                    setPausedCards((prev) => ({ ...prev, [service.id]: true }))
-                  }
-                  onMouseLeave={() =>
-                    setPausedCards((prev) => ({ ...prev, [service.id]: false }))
-                  }
-                >
+                <div key={service.id} className="flip-card h-[320px]">
                   <div className="flip-inner">
                     <div className="flip-front bg-card-dark border border-white/5 p-8 flex flex-col gap-4">
-                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg overflow-hidden bg-primary/10">
-                        {service.image ? (
+                      <div className="h-14 w-14 rounded-lg overflow-hidden bg-primary/10 flex items-center justify-center">
+                        {service.icon ? (
                           <img
                             src={service.icon}
                             alt=""
                             className="w-full h-full object-cover"
                           />
                         ) : (
-                          <div
-                            className="w-full h-full bg-white/5"
-                            aria-hidden
-                          />
+                          <div className="w-full h-full bg-white/5" />
                         )}
                       </div>
+
                       <h3 className="text-white text-xl font-bold">
                         {getTitle(service)}
                       </h3>
+
                       <p className="text-gray-400 text-sm leading-relaxed">
                         {getDesc(service)}
                       </p>
                     </div>
-                    <div className="flip-back overflow-hidden bg-card-dark">
+
+                    <div className="flip-back bg-card-dark overflow-hidden">
                       {service.image ? (
                         <img
                           src={service.image}
@@ -238,10 +215,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div
-                          className="w-full h-full flex items-center justify-center bg-card-dark"
-                          aria-hidden
-                        />
+                        <div className="w-full h-full bg-card-dark" />
                       )}
                     </div>
                   </div>
