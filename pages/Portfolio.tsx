@@ -80,7 +80,7 @@ const Portfolio: React.FC = () => {
 
         {/* Category Buttons */}
         <div className="mb-12 flex flex-wrap gap-3 overflow-x-auto pb-4 scrollbar-hide">
-          <button
+          {/* <button
             onClick={() => handleCategoryClick(null)}
             className={`px-8 py-2.5 rounded-full text-sm font-bold transition-all border ${
               activeCategoryId === null
@@ -88,8 +88,8 @@ const Portfolio: React.FC = () => {
                 : "bg-white/5 dark:bg-white/5 light:bg-gray-100 border-white/10 dark:border-white/10 light:border-gray-300 text-gray-400 dark:text-gray-400 light:text-gray-700 hover:border-primary hover:text-white dark:hover:text-white light:hover:text-gray-900"
             }`}
           >
-            {t("portfolio.categoryAll")}
-          </button>
+            {/* {t("portfolio.categoryAll")} */}
+          {/* </button> */}
 
           {categories.map((cat) => (
             <button
@@ -115,7 +115,7 @@ const Portfolio: React.FC = () => {
           ) : (
             filteredProducts.map((product) => {
               const category = categories.find(
-                (c) => c.id === product.category_id
+                (c) => c.id === product.category_id,
               );
               return (
                 <div
