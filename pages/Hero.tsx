@@ -117,7 +117,7 @@ const Hero: React.FC = () => {
                 {t("hero.title2")}
               </span>
               <br />
-              <h1> {t("hero.title3")}</h1>
+              {/* <h1> {t("hero.title3")}</h1> */}
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-full font-normal leading-relaxed border-l-4 border-primary pl-4 sm:pl-6">
               {t("hero.subtitle")}
