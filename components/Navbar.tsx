@@ -53,9 +53,13 @@ const Navbar: React.FC = () => {
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="size-10 bg-primary rounded-lg flex items-center justify-center text-white shadow-lg shadow-primary/20 transition-transform group-hover:scale-110">
-            <span className="material-symbols-outlined text-2xl">campaign</span>
-          </div>
+          {/* Logo */}
+          <img
+            src="https://adv6ksa.com/backend_dashboard/storage/app/public/products/246f3f5f-a814-41cb-8c99-bd0ff9dac1b5.jpg"
+            alt="Logo"
+            className="w-12 h-12 object-contain" // هنا كبرنا الصورة
+          />
+
           <div className="flex flex-col">
             <span className="text-xl font-bold tracking-tight text-white dark:text-white light:text-gray-900 uppercase leading-none">
               Advertising

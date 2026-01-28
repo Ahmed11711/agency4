@@ -255,31 +255,31 @@
   },
   "about": {
     "label": "About Our Agency",
-    "title1": "Transforming Ideas",
+    "title1": "Professional Advertising",
     "title2": "into Reality.",
     "description": "We are a professional advertising company dedicated to transforming ideas into reality that drives business success. We reflect the strength of your brand and create a clear, powerful presence among your competitors by delivering integrated advertising and promotional solutions tailored to your needs.",
     "stats": {
       "years": "Years Exp",
       "projects": "Projects",
-      "globalClients": "Global Clients"
+      "globalClients": "Clients"
     },
     "viewCapabilities": "View Capabilities",
     "awardWinning": "Award Winning",
-    "topAgency": "Top Agency 2024",
+    "topAgency": "Top Agency 2015",
     "coreValues": {
       "title": "Our Core Values",
       "subtitle": "Building your brand with precision, creativity, and a results-driven mindset.",
       "value1": {
         "title": "Integrated Solutions",
-        "description": "Comprehensive strategies combining digital, print, and media for all platforms."
+        "description": "This is achieved by providing logistical solutions that accelerate the achievement of our clients’ goals.."
       },
       "value2": {
         "title": "Strategic Growth",
-        "description": "Data-driven approaches designed to scale your business and market share."
+        "description": "This is done by first identifying the appropriate advertising channels, which reflect the stages of business development."
       },
       "value3": {
         "title": "Premium Execution",
-        "description": "High-quality delivery and aesthetic precision that reflects your brand's true value."
+        "description": "This is achieved by utilizing high-quality advertising materials that are suitable for the type of business."
       }
     }
   },
@@ -328,42 +328,40 @@
   },
   "whyUs": {
     "badge": "Why Partner With Us",
-    "title1": "Building Brands with",
+    "title1": "Building Your Brand",
     "title2": "Precision & Passion",
-    "subtitle": "We don't just create ads; we engineer market dominance. Our process is built on data, fueled by creativity, and executed with military precision.",
+    "subtitle": "We don’t just create advertisements; we leave a lasting mark by utilizing diverse marketing channels to give your brand the power to compete and stand out in a distinctive way.",
     "stats": {
       "globalClients": "Global Clients",
       "yearsActive": "Years Active"
     },
     "feature1": {
       "title": "Decades of Experience",
-      "description": "Our senior team brings decades of expertise navigating complex media landscapes across Fortune 500 sectors."
-    },
+      "description": "We have extensive experience in the field, which enables us to select the most suitable advertising channels for our clients’ activities, resulting in a positive impact on sales." },
     "feature2": {
       "title": "Uncompromised Quality",
-      "description": "We maintain pixel-perfect execution and premium production standards. \"Good enough\" is not in our vocabulary."
+      "description": "We are committed to the quality of our products and materials, providing the appropriate guarantees that instill confidence in our clients" 
+    }
     },
     "feature3": {
       "title": "Constant Innovation",
-      "description": "We leverage cutting-edge tech and creative trends before they hit the mainstream, giving you the advantage."
-    },
+      "description": "We pride ourselves on a team capable of creativity and continuous innovation in advertising ideas."
+        },
     "feature4": {
       "title": "Unwavering Commitment",
-      "description": "Dedicated account management and 24/7 support availability. We treat your brand reputation as our own."
-    },
+      "description": "We are committed to executing all agreed-upon tasks, enabling our clients to achieve their goals"},
     "feature5": {
       "title": "On-Time Delivery",
-      "description": "Rigorous project management ensuring deadlines are met, every time. No excuses, just results."
-    },
+      "description": "We are committed to delivering orders and projects on time, which earns our clients’ trust and makes them rely on us." },
     "ctaCard": {
       "title": "Ready to start?",
       "description": "Let's build something great together."
     },
     "cta": {
       "title": "Ready to elevate your brand?",
-      "description": "Join the ranks of market leaders who choose us for our precision, passion, and performance.",
+      "description": "Join the ranks of market leaders who have joined us.",
       "startProject": "Start Your Project",
-      "viewPortfolio": "View Portfolio"
+      "viewPortfolio": "Some of Our Works"
     }
   }
-}
+

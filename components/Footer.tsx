@@ -29,11 +29,11 @@ const Footer: React.FC = () => {
           {/* Company */}
           <div className="col-span-1 md:col-span-1 flex flex-col gap-6">
             <div className="flex items-center gap-3">
-              <div className="size-8 bg-primary rounded flex items-center justify-center text-white">
-                <span className="material-symbols-outlined text-xl">
-                  campaign
-                </span>
-              </div>
+              <img
+                src="https://adv6ksa.com/backend_dashboard/storage/app/public/products/246f3f5f-a814-41cb-8c99-bd0ff9dac1b5.jpg"
+                alt="Logo"
+                className="w-12 h-12 object-contain" // حجم مناسب للعرض
+              />
               <h2 className="text-white dark:text-white light:text-gray-900 text-lg font-bold tracking-tight">
                 {t("footer.companyName")}
               </h2>
