@@ -62,11 +62,9 @@ const Navbar: React.FC = () => {
 
           <div className="flex flex-col">
             <span className="text-xl font-bold tracking-tight text-white dark:text-white light:text-gray-900 uppercase leading-none">
-              Advertising
-            </span>
-            <span className="text-[10px] tracking-[0.2em] text-gray-400 dark:text-gray-400 light:text-gray-600 uppercase font-medium">
               Professional Advertising
             </span>
+            <span className="text-[10px] tracking-[0.2em] text-gray-400 dark:text-gray-400 light:text-gray-600 uppercase font-medium"></span>
           </div>
         </Link>
 
