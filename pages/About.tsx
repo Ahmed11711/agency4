@@ -63,11 +63,14 @@ const About: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-[#201213]/80 dark:from-[#201213]/80 light:from-gray-50/80 to-transparent"></div>
             </div>
             <div className="absolute -bottom-6 -left-6 flex items-center gap-4 rounded-xl bg-card-dark dark:bg-card-dark light:bg-white p-6 border border-white/10 dark:border-white/10 light:border-gray-200 shadow-2xl backdrop-blur-md">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/20 text-primary">
-                <span className="material-symbols-outlined text-3xl">
-                  award_star
-                </span>
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/20 overflow-hidden">
+                <img
+                  src="https://adv6ksa.com/backend_dashboard/storage/app/public/products/zain.png"
+                  alt="Award"
+                  className="h-full w-full object-contain"
+                />
               </div>
+
               <div>
                 <p className="text-white dark:text-white light:text-gray-900 text-base font-bold">
                   {t("about.awardWinning")}

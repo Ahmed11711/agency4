@@ -93,35 +93,41 @@ const Hero: React.FC = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
+          {/* Background Image */}
           <div
-            className="absolute inset-0  transition-transform duration-[20s] ease-linear scale-105 
-            opacity-170"
+            className="absolute inset-0 bg-center bg-no-repeat bg-cover transition-transform duration-[20s] ease-linear scale-100 translate-y-10"
             style={{ backgroundImage: `url(${heroimage})` }}
           />
 
-          <div className="absolute inset-0 bg-gradient-to-r from-[#201213]/70 via-[#201213]/40 to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#201213]/70 via-transparent to-[#201213]/30"></div>
+          {/* Light Gradient Overlays for contrast */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#201213]/50 via-[#201213]/20 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#201213]/50 via-transparent to-[#201213]/10"></div>
         </div>
 
         <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 pt-20">
           <div className="max-w-4xl flex flex-col gap-8">
+            {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 w-fit backdrop-blur-sm">
               <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
               <span className="text-primary text-xs font-bold tracking-widest uppercase">
                 {t("hero.badge")}
               </span>
             </div>
+
+            {/* Title */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-[1.1] tracking-tight break-words">
               {t("hero.title1")}{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-red-400">
                 {t("hero.title2")}
               </span>
-              <br />
-              {/* <h1> {t("hero.title3")}</h1> */}
             </h1>
+
+            {/* Subtitle */}
             <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-full font-normal leading-relaxed border-l-4 border-primary pl-4 sm:pl-6">
               {t("hero.subtitle")}
             </p>
+
+            {/* Buttons */}
             <div className="flex flex-wrap items-center gap-4 mt-4">
               <Link
                 to="/portfolio"
@@ -145,34 +151,6 @@ const Hero: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Quick Links */}
-        {/* <div className="absolute bottom-0 w-full z-20 border-t border-white/5 dark:border-white/5 light:border-gray-200 bg-background-dark/80 dark:bg-background-dark/80 light:bg-white/90 backdrop-blur-md hidden lg:block">
-          <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <div className="grid grid-cols-4 divide-x divide-white/10 dark:divide-white/10 light:divide-gray-200">
-              {quickLinks.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="p-6 group cursor-pointer hover:bg-white/5 dark:hover:bg-white/5 light:hover:bg-gray-100 transition-colors"
-                >
-                  <div className="flex items-start gap-4">
-                    <span className="text-2xl font-black text-white/10 dark:text-white/10 light:text-gray-300 group-hover:text-primary transition-colors">
-                      {item.n}
-                    </span>
-                    <div>
-                      <h4 className="text-white dark:text-white light:text-gray-900 font-bold text-sm uppercase tracking-wider mb-1">
-                        {item.t}
-                      </h4>
-                      <p className="text-xs text-gray-500 dark:text-gray-500 light:text-gray-600 line-clamp-1">
-                        {item.d}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div> */}
       </section>
 
       {/* Services Section */}

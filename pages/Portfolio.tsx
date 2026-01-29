@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useI18n } from "../contexts/I18nContext";
+import { useLocation } from "react-router-dom";
 
 interface Product {
   id: number;
   name: string;
   short_description: string;
-  slug: string; // لو عايز تستخدم slug للمنتجات
-  images: string[] | null;
+  slug: string;
+  images: string[] | string | null; // ← دعم string أو array
   category_id: number;
   sku: string | null;
   description: string;
+  views?: number; // ← إضافة دعم الـ views
 }
 
 interface Category {
@@ -22,6 +24,7 @@ interface Category {
 
 const Portfolio: React.FC = () => {
   const { t, language } = useI18n();
+  const location = useLocation();
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
@@ -41,27 +44,41 @@ const Portfolio: React.FC = () => {
       });
   }, []);
 
+  // قراءة category_id فقط إذا جاي من صفحة الخدمات
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const catId = params.get("category_id");
+    if (catId) setActiveCategoryId(Number(catId));
+  }, [location.search]);
+
   const handleCategoryClick = (categoryId: number | null) => {
     setActiveCategoryId(categoryId);
+    // ممكن تحدث الرابط لو حبيت تحافظ على category_id في URL
   };
 
-  const filteredProducts = activeCategoryId
-    ? categories.find((c) => c.id === activeCategoryId)?.products || []
-    : categories.flatMap((c) => c.products);
+  // ترتيب المنتجات حسب views
+  const filteredProducts = (
+    activeCategoryId
+      ? categories.find((c) => c.id === activeCategoryId)?.products || []
+      : categories.flatMap((c) => c.products)
+  ).sort((a, b) => (a.views ?? 0) - (b.views ?? 0)); // تصاعدي حسب views
 
-  // دوال لاختيار الاسم أو slug حسب اللغة
-  const getCategoryLabel = (category: Category) => {
-    return language === "ar" ? category.description : category.name;
-  };
+  const getCategoryLabel = (category: Category) =>
+    language === "ar" ? category.description : category.name;
 
-  const getProductTitle = (product: Product) => {
-    return language === "ar" ? product.sku : product.name;
-  };
+  const getProductTitle = (product: Product) =>
+    language === "ar" ? product.sku || product.name : product.name;
 
-  const getProductDescription = (product: Product) => {
-    return language === "ar" ? product.short_description : product.description;
+  const getProductDescription = (product: Product) =>
+    language === "ar" ? product.short_description : product.description;
 
-    return product.short_description; // لو عندك ترجمة بالعربي هنا ممكن تغيرها
+  // دالة ذكية لاختيار الصورة
+  const getProductImage = (product: Product) => {
+    if (!product.images) return "https://via.placeholder.com/600x400";
+    if (Array.isArray(product.images))
+      return product.images[0] || "https://via.placeholder.com/600x400";
+    if (typeof product.images === "string") return product.images;
+    return "https://via.placeholder.com/600x400";
   };
 
   return (
@@ -69,7 +86,7 @@ const Portfolio: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         {/* Title */}
         <div className="mb-16">
-          <h1 className="text-5xl md:text-7xl font-black text-white dark:text-white light:text-gray-900 mb-6 uppercase tracking-tighter">
+          <h1 className="text-5xl md:text-7xl font-black text-white mb-6 uppercase tracking-tighter">
             {t("portfolio.title1")}{" "}
             <span className="text-primary">{t("portfolio.title2")}</span>
           </h1>
@@ -80,17 +97,6 @@ const Portfolio: React.FC = () => {
 
         {/* Category Buttons */}
         <div className="mb-12 flex flex-wrap gap-3 overflow-x-auto pb-4 scrollbar-hide">
-          {/* <button
-            onClick={() => handleCategoryClick(null)}
-            className={`px-8 py-2.5 rounded-full text-sm font-bold transition-all border ${
-              activeCategoryId === null
-                ? "bg-primary border-primary text-white"
-                : "bg-white/5 dark:bg-white/5 light:bg-gray-100 border-white/10 dark:border-white/10 light:border-gray-300 text-gray-400 dark:text-gray-400 light:text-gray-700 hover:border-primary hover:text-white dark:hover:text-white light:hover:text-gray-900"
-            }`}
-          >
-            {/* {t("portfolio.categoryAll")} */}
-          {/* </button> */}
-
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -125,11 +131,7 @@ const Portfolio: React.FC = () => {
                   <div className="w-full overflow-hidden">
                     <img
                       alt={product.name}
-                      src={
-                        typeof product.images === "string" && product.images
-                          ? product.images
-                          : "https://via.placeholder.com/600x400"
-                      }
+                      src={getProductImage(product)}
                       className="w-full h-auto transition-transform duration-700 group-hover:scale-110"
                     />
                   </div>
@@ -157,14 +159,6 @@ const Portfolio: React.FC = () => {
               );
             })
           )}
-        </div>
-
-        {/* Load More Button */}
-        <div className="mt-20 flex justify-center">
-          <button className="flex items-center gap-3 bg-secondary-gray/20 dark:bg-secondary-gray/20 light:bg-gray-100 hover:bg-secondary-gray/40 dark:hover:bg-secondary-gray/40 light:hover:bg-gray-200 border border-white/10 dark:border-white/10 light:border-gray-300 px-10 py-4 rounded-xl font-bold transition-all text-white dark:text-white light:text-gray-900">
-            {t("portfolio.loadMore")}{" "}
-            <span className="material-symbols-outlined">expand_more</span>
-          </button>
         </div>
       </div>
     </div>

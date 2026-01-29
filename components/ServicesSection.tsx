@@ -10,6 +10,7 @@ export interface ServiceItem {
   short_description: string;
   image?: string | null;
   icon?: string;
+  category_id: number; // ← لازم يكون موجود
 }
 
 export interface ServicesSectionProps {
@@ -37,7 +38,6 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
 
   const getTitle = (s: ServiceItem) =>
     language === "ar" ? s.short_name : s.name;
-
   const getDesc = (s: ServiceItem) =>
     language === "ar" ? s.short_description : s.description;
 
@@ -60,45 +60,14 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
 
   return (
     <>
-      {/* ===== Flip Animation Styles ===== */}
       {variant === "full" && (
         <style>{`
-          .flip-card {
-            perspective: 1200px;
-          }
-
-          .flip-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            animation: autoFlip 8s infinite cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform;
-          }
-
-          .flip-card:hover .flip-inner {
-            animation-play-state: paused;
-          }
-
-          @keyframes autoFlip {
-            0%   { transform: rotateY(0deg); }
-            45%  { transform: rotateY(0deg); }
-            55%  { transform: rotateY(180deg); }
-            95%  { transform: rotateY(180deg); }
-            100% { transform: rotateY(0deg); }
-          }
-
-          .flip-front,
-          .flip-back {
-            position: absolute;
-            inset: 0;
-            backface-visibility: hidden;
-            border-radius: 16px;
-          }
-
-          .flip-back {
-            transform: rotateY(180deg);
-          }
+          .flip-card { perspective: 1200px; }
+          .flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; animation: autoFlip 8s infinite cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }
+          .flip-card:hover .flip-inner { animation-play-state: paused; }
+          @keyframes autoFlip { 0% { transform: rotateY(0deg); } 45% { transform: rotateY(0deg); } 55% { transform: rotateY(180deg); } 95% { transform: rotateY(180deg); } 100% { transform: rotateY(0deg); } }
+          .flip-front, .flip-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 16px; }
+          .flip-back { transform: rotateY(180deg); }
         `}</style>
       )}
 
@@ -117,7 +86,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
               : "max-w-[1440px] mx-auto"
           }
         >
-          {/* ===== Header (Compact) ===== */}
+          {/* Header Compact */}
           {variant === "compact" && (label || title || viewAllHref) && (
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
               <div className="max-w-2xl">
@@ -146,7 +115,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
             </div>
           )}
 
-          {/* ===== Header (Full) ===== */}
+          {/* Header Full */}
           {variant === "full" && (title || subtitle) && (
             <div className="text-center mb-16">
               {title && (
@@ -158,7 +127,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
             </div>
           )}
 
-          {/* ===== Grid ===== */}
+          {/* Grid */}
           <div
             className={
               variant === "compact"
@@ -166,7 +135,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                 : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             }
           >
-            {/* ===== Compact Cards ===== */}
+            {/* Compact Cards */}
             {variant === "compact" &&
               displayServices.map((s) => (
                 <div
@@ -180,10 +149,14 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                 </div>
               ))}
 
-            {/* ===== Full Flip Cards ===== */}
+            {/* Full Flip Cards with Link */}
             {variant === "full" &&
               displayServices.map((service) => (
-                <div key={service.id} className="flip-card h-[320px]">
+                <Link
+                  key={service.id}
+                  to={`/portfolio?category_id=${service.category_id}`} // ← هنا
+                  className="flip-card h-[320px]"
+                >
                   <div className="flip-inner">
                     <div className="flip-front bg-card-dark border border-white/5 p-8 flex flex-col gap-4">
                       <div className="h-14 w-14 rounded-lg overflow-hidden bg-primary/10 flex items-center justify-center">
@@ -219,7 +192,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                       )}
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
           </div>
         </div>
