@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useI18n } from "../contexts/I18nContext";
 import { Link } from "react-router-dom";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaTiktok,
+  FaXTwitter,
+} from "react-icons/fa6";
 
 interface ServiceItem {
   id: number;
@@ -27,40 +33,69 @@ const Footer: React.FC = () => {
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           {/* Company */}
+
           <div className="col-span-1 md:col-span-1 flex flex-col gap-6">
+            {/* Logo & Name */}
             <div className="flex items-center gap-3">
               <img
                 src="https://adv6ksa.com/backend_dashboard/storage/app/public/products/246f3f5f-a814-41cb-8c99-bd0ff9dac1b5.jpg"
                 alt="Logo"
-                className="w-12 h-12 object-contain" // حجم مناسب للعرض
+                className="w-12 h-12 object-contain"
               />
               <h2 className="text-white dark:text-white light:text-gray-900 text-lg font-bold tracking-tight">
                 {t("footer.companyName")}
               </h2>
             </div>
+
+            {/* Tagline */}
             <p className="text-gray-400 dark:text-gray-400 light:text-gray-600 text-md leading-relaxed">
               {t("footer.tagline")}
             </p>
+
+            {/* Social Icons */}
             <div className="flex gap-4">
               <a
-                href="#"
-                className="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all"
+                href="https://www.facebook.com/share/1HdHQhoeKF/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="size-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-[#1877F2] hover:text-white transition-all"
               >
-                <span className="material-symbols-outlined text-xl">
-                  public
+                <span className="text-lg">
+                  <FaFacebookF />
                 </span>
               </a>
+
               <a
-                href="#"
-                className="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all"
+                href="https://www.instagram.com/adv6ksa?igsh=bTdyYjhzdWg1bHRx"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="size-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-gradient-to-tr hover:from-pink-500 hover:to-yellow-500 hover:text-white transition-all"
               >
-                <span className="material-symbols-outlined text-xl">mail</span>
+                <span className="text-lg">
+                  <FaInstagram />
+                </span>
               </a>
+
               <a
-                href="#"
-                className="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all"
+                href="https://x.com/adv6ksa1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="size-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-black hover:text-white transition-all"
               >
-                <span className="material-symbols-outlined text-xl">call</span>
+                <span className="text-lg">
+                  <FaXTwitter />
+                </span>
+              </a>
+
+              <a
+                href="https://www.tiktok.com/@professionaladver5?_r=1&_t=ZS-93OZ1uGTOBm"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="size-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-[#000000] hover:text-white transition-all"
+              >
+                <span className="text-lg">
+                  <FaTiktok />
+                </span>
               </a>
             </div>
           </div>

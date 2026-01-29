@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
           <img
             src="https://adv6ksa.com/backend_dashboard/storage/app/public/products/246f3f5f-a814-41cb-8c99-bd0ff9dac1b5.jpg"
             alt="Logo"
-            className="w-12 h-12 object-contain" // هنا كبرنا الصورة
+            className="w-12 h-12 object-contain"
           />
 
           <div className="flex flex-col">
