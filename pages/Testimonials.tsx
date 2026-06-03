@@ -72,11 +72,9 @@ const Testimonials: React.FC = () => {
               {t("testimonials.label")}
             </span>
           </div>
-          <h1 className="text-white dark:text-white light:text-gray-900 text-4xl md:text-6xl font-black mb-6">
+          <h1 className="text-primary dark:text-white light:text-gray-900 text-4xl md:text-6xl font-black mb-6">
             {t("testimonials.title1")}{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white dark:from-white light:from-gray-900 to-gray-500 dark:to-gray-500 light:to-gray-600">
-              {t("testimonials.title2")}
-            </span>
+            <span className="text-[#CB2429]">{t("testimonials.title2")}</span>
           </h1>
           <p className="text-gray-400 dark:text-gray-400 light:text-gray-600 text-lg md:text-xl max-w-2xl">
             {t("testimonials.subtitle")}

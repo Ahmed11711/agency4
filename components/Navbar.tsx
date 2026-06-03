@@ -87,7 +87,7 @@ const Navbar: React.FC = () => {
         {/* Right Actions */}
         <div className="flex items-center gap-3">
           {/* Theme Toggle */}
-          <button
+          {/* <button
             onClick={toggleTheme}
             className="hidden sm:flex items-center justify-center rounded-lg bg-white/5 dark:bg-white/5 light:bg-gray-100 hover:bg-white/10 dark:hover:bg-white/10 light:hover:bg-gray-200 p-2.5 transition-all"
             aria-label={
@@ -97,7 +97,7 @@ const Navbar: React.FC = () => {
             <span className="material-symbols-outlined text-xl text-white dark:text-white light:text-gray-900">
               {theme === "dark" ? "light_mode" : "dark_mode"}
             </span>
-          </button>
+          </button> */}
 
           {/* Language Switcher */}
           <div className="relative lang-menu">

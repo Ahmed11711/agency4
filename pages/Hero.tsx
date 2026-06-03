@@ -115,12 +115,12 @@ const Hero: React.FC = () => {
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-[1.1] tracking-tight break-words">
+            <h2 className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-[1.1] tracking-tight break-words">
               {t("hero.title1")}{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-red-400">
                 {t("hero.title2")}
               </span>
-            </h1>
+            </h2>
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-full font-normal leading-relaxed border-l-4 border-primary pl-4 sm:pl-6">
