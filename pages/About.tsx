@@ -63,11 +63,11 @@ const About: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-[#201213]/80 dark:from-[#201213]/80 light:from-gray-50/80 to-transparent"></div>
             </div>
             <div className="absolute -bottom-6 -left-6 flex items-center gap-4 rounded-xl bg-card-dark dark:bg-card-dark light:bg-white p-6 border border-white/10 dark:border-white/10 light:border-gray-200 shadow-2xl backdrop-blur-md">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/20 overflow-hidden">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 overflow-hidden">
                 <img
                   src="https://adv6ksa.com/backend_dashboard/storage/app/public/products/zain.png"
                   alt="Award"
-                  className="h-full w-full object-contain"
+                  className="h-full w-full object-contain brightness-0 invert drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
                 />
               </div>
 
@@ -75,7 +75,7 @@ const About: React.FC = () => {
                 <p className="text-white dark:text-white light:text-gray-900 text-base font-bold">
                   {t("about.awardWinning")}
                 </p>
-                <p className="text-gray-400 dark:text-gray-400 light:text-gray-600 text-xs uppercase tracking-widest font-bold">
+                <p className="text-white dark:text-white light:text-gray-900 text-base font-bold">
                   {t("about.topAgency")}
                 </p>
               </div>
